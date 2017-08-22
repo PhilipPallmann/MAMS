@@ -4,9 +4,9 @@
 \alias{summary.MAMS}
 \alias{print.MAMS.sim}
 \alias{summary.MAMS.sim}
-\alias{print.MAMS.step_down}
-\alias{summary.MAMS.step_down}
-\alias{plot.MAMS.step_down}
+\alias{print.MAMS.stepdown}
+\alias{summary.MAMS.stepdown}
+\alias{plot.MAMS.stepdown}
 
 
 \title{Different generic functions for class MAMS.}
@@ -23,11 +23,11 @@
 
 \method{summary}{MAMS.sim}(object, digits=max(3, getOption("digits") - 4), \dots)
 
-\method{print}{MAMS.step_down}(x, digits=max(3, getOption("digits") - 4), ...)
+\method{print}{MAMS.stepdown}(x, digits=max(3, getOption("digits") - 4), ...)
 
-\method{summary}{MAMS.step_down}(object, digits=max(3, getOption("digits") - 4), \dots)
+\method{summary}{MAMS.stepdown}(object, digits=max(3, getOption("digits") - 4), \dots)
 
-\method{plot}{MAMS.step_down}(x, col=NULL, pch=NULL, lty=NULL, main=NULL, xlab="Analysis", 
+\method{plot}{MAMS.stepdown}(x, col=NULL, pch=NULL, lty=NULL, main=NULL, xlab="Analysis", 
      ylab="Test statistic", ylim=NULL, type=NULL, bty="n", las=1, \dots)
 
 
@@ -61,11 +61,11 @@
 
   \code{summary.MAMS.sim} produces same output as \code{print.MAMS.sim}.\cr
 
-  \code{print.MAMS.step_down} produces a summary of an object from class MAMS including boundaries and requires sample size if initially requested.\cr
+  \code{print.MAMS.stepdown} produces a summary of an object from class MAMS including boundaries and requires sample size if initially requested.\cr
 
-  \code{summary.MAMS.step_down} produces same output as \code{print.step_down_mams}.\cr
+  \code{summary.MAMS.stepdown} produces same output as \code{print.stepdown.mams}.\cr
 
-  \code{plot.MAMS.step_down} produces a plot of the boundaries. When used with \code{update_mams}, pluses indicate observed values of test statistics.
+  \code{plot.MAMS.stepdown} produces a plot of the boundaries. When used with \code{update.mams}, pluses indicate observed values of test statistics.
 
 }
 
@@ -98,9 +98,9 @@ res <- mams.sim(nsim=10000, nMat=matrix(c(44, 88), nrow=2, ncol=5), u=c(3.068, 2
 print(res)
 
 # 2-stage 3-treatments versus control design, all promising treatments are selected:
-res <- step_down_mams(nMat=matrix(c(10, 20), nrow=2, ncol=4), 
-                      alpha_star=c(0.01, 0.05), lb=0, 
-                      selection="all_promising")
+res <- stepdown.mams(nMat=matrix(c(10, 20), nrow=2, ncol=4), 
+                     alpha.star=c(0.01, 0.05), lb=0, 
+                     selection="all.promising")
 
 print(res)
 summary(res)

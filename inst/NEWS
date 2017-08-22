@@ -7,11 +7,18 @@ Magirr D, Jaki T, Whitehead J (2012) A generalized Dunnett Test for
 Multi-arm Multi-stage Clinical Studies with Treatment Selection. 
 Biometrika. 99(2):494-501.
 
-Question or suggestions about the package can be send to
+Question or suggestions about the package can be sent to
 
    jaki.thomas@gmail.com
 
 --------------------CHANGE LOG--------------------------------------------
+Version 1.02
+
+  o Harmonised function and input names (most notably, 'step_down_mams' and
+    'update_mams' are now called 'stepdown.mams' and 'update.mams')
+  o xxx
+
+--------------------------------------------------------------------------
 Version 1.01
 
   o Corrected minor bug in mams.sim for K=1

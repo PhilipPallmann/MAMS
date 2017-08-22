@@ -52,7 +52,7 @@ An object of the class MAMS containing the following components: \cr
   \item{K}{Number of experimental treatments.}
   \item{J}{Number of stages in the trial. }
   \item{alpha}{Familywise error rate.}
-  \item{alpha_star}{Cumulative familywise error rate spent by each analysis.}
+  \item{alpha.star}{Cumulative familywise error rate spent by each analysis.}
   \item{power}{Power under least favorable configuration.}
 
   \item{rMat}{Matrix of allocation ratios. First row corresponds to control while subsequent rows are for the experimental treatments.}

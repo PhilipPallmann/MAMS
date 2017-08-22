@@ -5,8 +5,8 @@ deed3407a745be2ce0fd69d07b1906ce *NAMESPACE
 5adceddc2d9d8cb5785db77dad561740 *R/mams.R
 9b64aa7efc4fcfeec718633970b51a2a *R/mams.sim.R
 3ae69475e05c75fd34ba55105bc2dbff *R/new.bounds.R
-8a4463f5b3f573a3234dc23f80b97e4b *R/step_down_mams.R
-5296492fbf020c6cd4f6df7883c8312c *R/update_mams.R
+8a4463f5b3f573a3234dc23f80b97e4b *R/stepdown.mams.R
+5296492fbf020c6cd4f6df7883c8312c *R/update.mams.R
 9151eb75fd688a37c21f75e9b42cf08e *inst/CITATION
 00011df942cdfdc554a845be1536dd12 *inst/NEWS
 696e357f4f98c398038ab73317e72ad0 *man/MAMS.News.Rd
@@ -14,5 +14,5 @@ c80470ef0f218f8e763f346025004dde *man/generic.Rd
 59b4ba9fa292ad337b190ae577e6bb89 *man/mams.Rd
 bc310fe5cc265dc04772e2e46e5682b7 *man/mams.sim.Rd
 00924efd92aa4dcf93d547372f3ab6d6 *man/new.bounds.Rd
-20f76670c30999d426bc5d5449b37758 *man/step_down_mams.Rd
-18730c111295ca728acf058d6defd340 *man/update_mams.Rd
+20f76670c30999d426bc5d5449b37758 *man/stepdown.mams.Rd
+18730c111295ca728acf058d6defd340 *man/update.mams.Rd

@@ -109,7 +109,7 @@ summary.MAMS.sim<-function(object, digits=max(3, getOption("digits") - 4), ...){
 
 
 
-print.MAMS.step_down<- function (x, digits=max(3, getOption("digits") - 4), ...) {
+print.MAMS.stepdown<- function (x, digits=max(3, getOption("digits") - 4), ...) {
 
     get.hyp <- function(n){ # find the nth intersection hypothesis (positions of 1s in binary n)
         indlength = ceiling(log(n)/log(2)+.0000001)
@@ -124,12 +124,12 @@ print.MAMS.step_down<- function (x, digits=max(3, getOption("digits") - 4), ...)
     }
     
     cat(paste("Design parameters for a ", x$J, " stage trial with ", x$K, " treatments\n\n",sep=""))
-    res <- t(x$sample_sizes)
+    res <- t(x$sample.sizes)
     colnames(res)<-paste("Stage",1:x$J)
     rownames(res) <- c("Cumulative sample size  (control):", paste("Cumulative sample size per stage (treatment ", 1:x$K, "):"))
 
     print(res)
-    cat(paste("\nMaximum total sample size: ", sum(x$sample_sizes[x$J,]),"\n\n"))
+    cat(paste("\nMaximum total sample size: ", sum(x$sample.sizes[x$J,]),"\n\n"))
 
     for (i in 1:length(x$l)){
 
@@ -138,7 +138,7 @@ print.MAMS.step_down<- function (x, digits=max(3, getOption("digits") - 4), ...)
         res <- matrix(NA,nrow=3,ncol=x$J)
         colnames(res)<-paste("Stage",1:x$J)
         rownames(res) <- c("Conditional error", "Upper boundary", "Lower boundary")
-        res[1,] <- x$alpha_star[[i]]
+        res[1,] <- x$alpha.star[[i]]
         res[2,] <- x$u[[i]]
         res[3,] <- x$l[[i]]
   
@@ -148,14 +148,14 @@ print.MAMS.step_down<- function (x, digits=max(3, getOption("digits") - 4), ...)
 }
 
 
-summary.MAMS.step_down<-function(object, digits=max(3, getOption("digits") - 4), ...){
+summary.MAMS.stepdown<-function(object, digits=max(3, getOption("digits") - 4), ...){
 
   print(object)
 
 }
              
 
-plot.MAMS.step_down <- function (x, col=NULL, pch=NULL, lty=NULL, main=NULL, xlab="Analysis", ylab="Test statistic", ylim=NULL, type=NULL, bty="n", las=1, ...) {
+plot.MAMS.stepdown <- function (x, col=NULL, pch=NULL, lty=NULL, main=NULL, xlab="Analysis", ylab="Test statistic", ylim=NULL, type=NULL, bty="n", las=1, ...) {
 
     get.hyp <- function(n){ # find the nth intersection hypothesis (positions of 1s in binary n)
         indlength = ceiling(log(n)/log(2)+.0000001)
@@ -178,11 +178,11 @@ plot.MAMS.step_down <- function (x, col=NULL, pch=NULL, lty=NULL, main=NULL, xla
     if(is.null(lty))lty<-2
     if(is.null(ylim)){
 
-        l_min <- min(unlist(lapply(x$l, function(a) min(a[(a!=Inf)&(a!=-Inf)]))))
-        if (!is.null(x$z_scores)) l_min <- min(l_min, min(unlist(x$z_scores)[unlist(x$z_scores) != -Inf]))
-        u_max <- max(unlist(lapply(x$u, function(a) max(a[(a!=Inf)&(a!=-Inf)]))))
-        r <- u_max - l_min
-        ylim <- c(l_min - r/6, u_max + r/6)
+        l.min <- min(unlist(lapply(x$l, function(a) min(a[(a!=Inf)&(a!=-Inf)]))))
+        if (!is.null(x$z.scores)) l.min <- min(l.min, min(unlist(x$z.scores)[unlist(x$z.scores) != -Inf]))
+        u.max <- max(unlist(lapply(x$u, function(a) max(a[(a!=Inf)&(a!=-Inf)]))))
+        r <- u.max - l.min
+        ylim <- c(l.min - r/6, u.max + r/6)
         
     }
     
@@ -193,29 +193,29 @@ plot.MAMS.step_down <- function (x, col=NULL, pch=NULL, lty=NULL, main=NULL, xla
     lines(x$u[[1]],lty=lty)
     lines(x$l[[1]][1:(x$J)],lty=lty)
 
-    completed_stages <- length(x$z_scores)
-    if (completed_stages > 0){
-        for (i in 1:completed_stages){
+    completed.stages <- length(x$z.scores)
+    if (completed.stages > 0){
+        for (i in 1:completed.stages){
             for (k in 1:x$K){
-                points(i, x$z_scores[[i]][k], col = 2 ^ (k - 1), pch = 3)
+                points(i, x$z.scores[[i]][k], col = 2 ^ (k - 1), pch = 3)
             }
         }
     }
         
 
     
-    legend_text <- NULL
+    legend.text <- NULL
     
     #if (length(col) < length(x$l)) col <- rep(col, length(x$l))
         
     for (i in 1:length(x$l)){
-        legend_text <- c(legend_text, paste("H_{", paste(get.hyp(i), collapse = " "), "}"))
-        legend_col <- c(col, i)
-        if ((x$alpha_star[[i]][x$J] > 0) && (x$alpha_star[[i]][x$J] < 1)){
+        legend.text <- c(legend.text, paste("H_{", paste(get.hyp(i), collapse = " "), "}"))
+        legend.col <- c(col, i)
+        if ((x$alpha.star[[i]][x$J] > 0) && (x$alpha.star[[i]][x$J] < 1)){
             
             matpoints(1:x$J, cbind(x$l[[i]], x$u[[i]]), type=type, pch=pch, col=col[i], ylab=ylab, xlab=xlab, ylim=ylim, axes=FALSE, ...)
            
-            lines(x$u[[i]],lty=lty, col = col[i])
+            lines(x$u[[i]],lty=lty, col=col[i])
             lines(x$l[[i]][1:(x$J)],lty=lty, col=col[i])
         }
         
@@ -223,5 +223,5 @@ plot.MAMS.step_down <- function (x, col=NULL, pch=NULL, lty=NULL, main=NULL, xla
         
     }
 
-    legend("bottomright", legend=legend_text, bty=bty, lty=lty, col=col)
+    legend("bottomright", legend=legend.text, bty=bty, lty=lty, col=col)
 }

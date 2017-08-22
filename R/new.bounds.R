@@ -230,13 +230,13 @@ new.bounds <- function(K=3, J=2, alpha=0.05, nMat=matrix(c(10,20),nrow=2,ncol=4)
 
 
   #########################################################
-  ## Find alpha_star
+  ## Find alpha.star
   #########################################################
-  alpha_star <- numeric(J)
-  alpha_star[1] <- typeI(ub[1], alpha = 0, N = N, R = t(as.matrix(R[1,])), r0 = r0[1], r0diff = r0diff[1], J = 1, K = K, Sigma = Sigma, u = NULL, l = NULL, u.shape = "fixed", l.shape = "fixed", lfix = NULL, ufix = NULL)
+  alpha.star <- numeric(J)
+  alpha.star[1] <- typeI(ub[1], alpha = 0, N = N, R = t(as.matrix(R[1,])), r0 = r0[1], r0diff = r0diff[1], J = 1, K = K, Sigma = Sigma, u = NULL, l = NULL, u.shape = "fixed", l.shape = "fixed", lfix = NULL, ufix = NULL)
   if (J > 1){
       for (j in 2:J){
-          alpha_star[j] <- typeI(ub[j], alpha = 0, N = N, R = R[1:j,], r0 = r0[1:j], r0diff = r0diff[1:j], J = j, K = K, Sigma = Sigma, u = NULL, l = NULL, u.shape = "fixed", l.shape = "fixed", lfix = lb[1:(j - 1)], ufix = ub[1:(j - 1)])
+          alpha.star[j] <- typeI(ub[j], alpha = 0, N = N, R = R[1:j,], r0 = r0[1:j], r0diff = r0diff[1:j], J = j, K = K, Sigma = Sigma, u = NULL, l = NULL, u.shape = "fixed", l.shape = "fixed", lfix = lb[1:(j - 1)], ufix = ub[1:(j - 1)])
       }
   }
 
@@ -252,7 +252,7 @@ new.bounds <- function(K=3, J=2, alpha=0.05, nMat=matrix(c(10,20),nrow=2,ncol=4)
   res$K <- K
   res$J <- J
   res$alpha <- alpha
-  res$alpha_star <- alpha_star
+  res$alpha.star <- alpha.star
   res$power <- NA
 
   

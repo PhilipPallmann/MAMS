@@ -16,7 +16,7 @@ stepdown.mams(nMat=matrix(c(10, 20), nrow=2, ncol=4),
 }
 
 \arguments{
-  \item{nMat}{Matrix containing the cumulative sample sizes in each treatment arm (columns: control, trt 1, ..., trt K), at each analysis (rows). The number of analyses must be either 2 or 3 (default=matrix(c(10, 20), nrow=2, ncol=4)).}
+  \item{nMat}{Matrix containing the cumulative sample sizes in each treatment arm (columns: control, trt 1, \dots, trt K), at each analysis (rows). The number of analyses must be either 2 or 3 (default=matrix(c(10, 20), nrow=2, ncol=4)).}
   \item{alpha.star}{Cumulative familywise error rate to be spent at each analysis (default=c(0.01, 0.025)).}
   \item{lb}{Fixed lower boundary (default=0).}
   \item{selection}{How are treatments selected for the next stage? Using the default "all.promising" method, all treatments with a test statistic exceeding the lower boundary are taken forward to the next stage. If "select.best", only the treatment with the largest statistic may be selected for future stages. (default="all.promising").}
@@ -35,17 +35,17 @@ An object of the class MAMS.stepdown containing the following components: \cr
   \item{J}{Number of stages in the trial.}
   \item{alpha.star}{Cumulative familywise error rate spent at each analysis.}
   \item{selection}{Pre-specified method of treatment selection.}
-  \item{z.scores}{A list containing the observed test statistics at analyses so far (at the design stage this is NULL).}
+  \item{zscores}{A list containing the observed test statistics at analyses so far (at the design stage this is NULL).}
   \item{selected.trts}{A list containing the treatments selected for each stage.}
 
 }
 
 \references{
-Magirr D, Jaki T, Whitehead J (2012) A generalized Dunnett Test for Multi-arm Multi-stage Clinical Studies with Treatment Selection. Biometrika. 99(2):494-501.\cr\cr
+Magirr D, Jaki T, Whitehead J (2012) A generalized Dunnett test for multi-arm multi-stage clinical studies with treatment selection. Biometrika, 99(2), 494-501.\cr
 
-Stallard N, Todd S (2003) Sequential designs for phase III clinical trials incorporating treatment selection. Statistics in Medicine 22, 689-703. \cr\cr
+Stallard N, Todd S (2003) Sequential designs for phase III clinical trials incorporating treatment selection. Statistics in Medicine, 22(5), 689-703.\cr
 
-Magirr D, Stallard N, Jaki T (2014) Flexible sequential designs for multi-arm clinical trials. Statistics in Medicine. Published online. \cr
+Magirr D, Stallard N, Jaki T (2014) Flexible sequential designs for multi-arm clinical trials. Statistics in Medicine, 33(19), 3269-3279.
 }
 
 \author{Dominic Magirr}

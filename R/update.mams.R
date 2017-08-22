@@ -1,16 +1,16 @@
-update.mams <- function(current.mams = stepdown.mams(), n.obs = NULL, z.scores = NULL, selected.trts = NULL, n.future = NULL) {
+update.mams <- function(current.mams = stepdown.mams(), nobs = NULL, zscores = NULL, selected.trts = NULL, nfuture = NULL) {
 
-    z.scores <- c(current.mams$z.scores, list(z.scores))
+    zscores <- c(current.mams$zscores, list(zscores))
 
     if (!is.null(selected.trts)) selected.trts <- c(current.mams$selected.trts, list(selected.trts))
     
     # checking input parameters
     if (!is(current.mams, "MAMS.stepdown")) {stop("current.mams must be a 'MAMS.stepdown' object")}
-    if (length(n.obs) != current.mams$K + 1) {stop("must provide observed cumulative sample size for each treatment")}
+    if (length(nobs) != current.mams$K + 1) {stop("must provide observed cumulative sample size for each treatment")}
 
-    completed.stages <- length(z.scores)
+    completed.stages <- length(zscores)
     for (i in 1:completed.stages) {
-        if (length(z.scores[[i]]) != current.mams$K) {stop("vector of statistics is wrong length")}
+        if (length(zscores[[i]]) != current.mams$K) {stop("vector of statistics is wrong length")}
     }
 
     if (is.null(selected.trts)){
@@ -20,9 +20,9 @@ update.mams <- function(current.mams = stepdown.mams(), n.obs = NULL, z.scores =
     for (i in seq_along(selected.trts)){
         if (length(setdiff(selected.trts[[i]], 1:current.mams$K) > 0)) {stop("inappropriate treatment selection")}
     }
-    if (is.matrix(n.future)){
-        if (dim(n.future)[1] != current.mams$J - completed.stages) {stop("must provide future sample sizes for all remaining stages")}
-        if (dim(n.future)[2] != current.mams$K + 1) {stop("must provide future sample sizes for all treatment arms")}
+    if (is.matrix(nfuture)){
+        if (dim(nfuture)[1] != current.mams$J - completed.stages) {stop("must provide future sample sizes for all remaining stages")}
+        if (dim(nfuture)[2] != current.mams$K + 1) {stop("must provide future sample sizes for all treatment arms")}
     }
 
     # load all necessary functions
@@ -76,12 +76,12 @@ update.mams <- function(current.mams = stepdown.mams(), n.obs = NULL, z.scores =
     sigma_2_2 - sigma_2_1 %*% solve(sigma_1_1) %*% sigma_1_2
 
   }
-  create.cond.mean <- function(cov.matrix, K, completed.stages, z.scores){ # find the conditional mean of future test statistics given data so far
+  create.cond.mean <- function(cov.matrix, K, completed.stages, zscores){ # find the conditional mean of future test statistics given data so far
 
     sigma_1_1 <- cov.matrix[((completed.stages - 1) * K + 1):(completed.stages * K), ((completed.stages - 1) * K + 1):(completed.stages * K)]
     sigma_1_2 <- cov.matrix[((completed.stages - 1) * K + 1):(completed.stages * K), -(1:(completed.stages * K))]
     sigma_2_1 <- t(sigma_1_2)
-    sigma_2_1 %*% solve(sigma_1_1) %*% z.scores
+    sigma_2_1 %*% solve(sigma_1_1) %*% zscores
 
   } 
   get.path.prob <- function(surviving.subset1, surviving.subset2 = NULL, cut.off, treatments, cov.matrix, lower.boundary, upper.boundary, K, stage, z.means){ # find the probability that no test statistic crosses the upper boundary + only treatments in surviving_subsetj reach the jth stage
@@ -148,7 +148,7 @@ update.mams <- function(current.mams = stepdown.mams(), n.obs = NULL, z.scores =
     u <- current.mams$u
     selection.method <- current.mams$selection
     sample.sizes <- current.mams$sample.sizes
-    sample.sizes[completed.stages, ] <- n.obs  # Update given the sample sizes actually observed
+    sample.sizes[completed.stages, ] <- nobs  # Update given the sample sizes actually observed
     if (!all(diff(sample.sizes) >= 0)) {stop("total sample size per arm cannot decrease between stages.")}
     J <- dim(sample.sizes)[1]
     K <- dim(sample.sizes)[2] - 1
@@ -160,7 +160,7 @@ update.mams <- function(current.mams = stepdown.mams(), n.obs = NULL, z.scores =
     cond.mean <- rep(0, K * J)
     if (completed.stages > 1){
         cond.cov.matrix <- create.cond.cov.matrix(cov.matrix, K, completed.stages - 1)
-        cond.mean <- create.cond.mean(cov.matrix, K, completed.stages - 1, z.scores = z.scores[[completed.stages - 1]])
+        cond.mean <- create.cond.mean(cov.matrix, K, completed.stages - 1, zscores = zscores[[completed.stages - 1]])
     }
     
 
@@ -180,13 +180,13 @@ update.mams <- function(current.mams = stepdown.mams(), n.obs = NULL, z.scores =
     }
     if (J > completed.stages) {
         cond.cov.matrix <- create.cond.cov.matrix(cov.matrix, K, completed.stages)
-        cond.mean <- create.cond.mean(cov.matrix, K, completed.stages, z.scores[[completed.stages]])
+        cond.mean <- create.cond.mean(cov.matrix, K, completed.stages, zscores[[completed.stages]])
     }
     for (i in 1:(2 ^ K - 1)) { # get conditional errors
         treatments <- intersect(selected.trts[[completed.stages]], get.hyp(i))
         if ((length(treatments > 0)) && (alpha.star[[i]][J] > 0) && (alpha.star[[i]][J] < 1)){
-            max.z <- max(z.scores[[completed.stages]][treatments])
-            best.treatment <- treatments[which.max(z.scores[[completed.stages]][treatments])]
+            max.z <- max(zscores[[completed.stages]][treatments])
+            best.treatment <- treatments[which.max(zscores[[completed.stages]][treatments])]
             if (max.z <= u[[i]][completed.stages]) alpha.star[[i]][completed.stages] <- 0
             if (max.z > u[[i]][completed.stages]) {
                 alpha.star[[i]][completed.stages:J] <- 1
@@ -212,14 +212,14 @@ update.mams <- function(current.mams = stepdown.mams(), n.obs = NULL, z.scores =
             }
         }
     }
-    if (is.matrix(n.future)){
-        sample.sizes[(completed.stages + 1):J, ] <- n.future
+    if (is.matrix(nfuture)){
+        sample.sizes[(completed.stages + 1):J, ] <- nfuture
         if (!all(diff(sample.sizes) >= 0)) {stop("total sample size per arm cannot decrease between stages.")}
         R <- sample.sizes[, -1] / sample.sizes[1, 1]
         r0 <- sample.sizes[, 1] / sample.sizes[1, 1]
         cov.matrix <- create.cov.matrix(r0, R)
         cond.cov.matrix <- create.cond.cov.matrix(cov.matrix, K, completed.stages)
-        cond.mean <- create.cond.mean(cov.matrix, K, completed.stages, z.scores = z.scores[[completed.stages]])
+        cond.mean <- create.cond.mean(cov.matrix, K, completed.stages, zscores = zscores[[completed.stages]])
     }
     if (J > completed.stages){
         for (i in 1:(2 ^ K - 1)){ 
@@ -245,7 +245,7 @@ update.mams <- function(current.mams = stepdown.mams(), n.obs = NULL, z.scores =
     res$J <- J
     res$alpha.star <- alpha.star
     res$selection <- selection.method
-    res$z.scores <- z.scores
+    res$zscores <- zscores
     res$selected.trts <- selected.trts
     class(res) <- "MAMS.stepdown"
 

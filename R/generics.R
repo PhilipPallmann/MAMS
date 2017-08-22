@@ -178,11 +178,11 @@ plot.MAMS.stepdown <- function (x, col=NULL, pch=NULL, lty=NULL, main=NULL, xlab
     if(is.null(lty))lty<-2
     if(is.null(ylim)){
 
-        l.min <- min(unlist(lapply(x$l, function(a) min(a[(a!=Inf)&(a!=-Inf)]))))
-        if (!is.null(x$z.scores)) l.min <- min(l.min, min(unlist(x$z.scores)[unlist(x$z.scores) != -Inf]))
-        u.max <- max(unlist(lapply(x$u, function(a) max(a[(a!=Inf)&(a!=-Inf)]))))
-        r <- u.max - l.min
-        ylim <- c(l.min - r/6, u.max + r/6)
+        lmin <- min(unlist(lapply(x$l, function(a) min(a[(a!=Inf)&(a!=-Inf)]))))
+        if (!is.null(x$zscores)) lmin <- min(lmin, min(unlist(x$zscores)[unlist(x$zscores) != -Inf]))
+        umax <- max(unlist(lapply(x$u, function(a) max(a[(a!=Inf)&(a!=-Inf)]))))
+        r <- umax - lmin
+        ylim <- c(lmin - r/6, umax + r/6)
         
     }
     
@@ -193,11 +193,11 @@ plot.MAMS.stepdown <- function (x, col=NULL, pch=NULL, lty=NULL, main=NULL, xlab
     lines(x$u[[1]],lty=lty)
     lines(x$l[[1]][1:(x$J)],lty=lty)
 
-    completed.stages <- length(x$z.scores)
+    completed.stages <- length(x$zscores)
     if (completed.stages > 0){
         for (i in 1:completed.stages){
             for (k in 1:x$K){
-                points(i, x$z.scores[[i]][k], col = 2 ^ (k - 1), pch = 3)
+                points(i, x$zscores[[i]][k], col = 2 ^ (k - 1), pch = 3)
             }
         }
     }

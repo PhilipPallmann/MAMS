@@ -16,8 +16,8 @@ mams.sim(nsim=1000, nMat=matrix(c(44, 88), nrow=2, ncol=5),
 }
 
 \arguments{
-  \item{nsim}{Number of simulation (default=1000).}
-  \item{nMat}{Jx(K+1) dimensional matrix of observed/expected sample sizes. Rows correspond to stages and columns to arms. First column is control (default: 2x5 matrix with 44 subjects per stage and arm). }
+  \item{nsim}{Number of simulations (default=1000).}
+  \item{nMat}{Jx(K+1) dimensional matrix of observed/expected sample sizes. Rows correspond to stages and columns to arms. First column is control (default: 2x5 matrix with 44 subjects per stage and arm).}
   \item{u}{Vector of previously used upper boundaries (default=NULL).}
   \item{l}{Vector of previously used upper boundaries (default=NULL).}
   \item{pv}{Vector of size K of true treatment effects. See Details (default=rep(0.5, 4).}
@@ -38,12 +38,12 @@ An object of the class MAMS.sim containing the following components: \cr
   res$prop.rej <- rej/nsim
   res$exss <- mean(unlist(reps["ess",]))
 
-  \item{l}{Lower boundary. } 
+  \item{l}{Lower boundary.} 
   \item{u}{Upper boundary.}
   \item{n}{Sample size on control in stage 1.}
   \item{N}{Maximum total sample size.}
   \item{K}{Number of experimental treatments.}
-  \item{J}{Number of stages in the trial. }
+  \item{J}{Number of stages in the trial.}
   \item{rMat}{Matrix of allocation ratios. First row corresponds to control and second row to experimental treatments.}
   \item{nsim}{Number of simulation runs.}
   \item{typeI}{The proportion any hypothesis is rejected.}
@@ -55,7 +55,7 @@ An object of the class MAMS.sim containing the following components: \cr
 }
 
 \references{
-Magirr D, Jaki T, Whitehead J (2012) A generalized Dunnett Test for Multi-arm Multi-stage Clinical Studies with Treatment Selection. Biometrika. 99(2):494-501.\cr
+Magirr D, Jaki T, Whitehead J (2012) A generalized Dunnett test for multi-arm multi-stage clinical studies with treatment selection. Biometrika, 99(2), 494-501.
 }
 
 \author{Thomas Jaki and Dominic Magirr}
@@ -67,7 +67,7 @@ Magirr D, Jaki T, Whitehead J (2012) A generalized Dunnett Test for Multi-arm Mu
 
 # 2-stage design with O'Brien & Fleming efficacy and zero futility boundary with 
 # equal sample size per arm and stage. Design can be found using
-# mams(K=4, J=2, alpha=0.05, power=0.9, r=1:2, r0=1:2, u.shape="obf", l.shape="fixed", 
+# mams(K=4, J=2, alpha=0.05, power=0.9, r=1:2, r0=1:2, ushape="obf", lshape="fixed", 
 #      lfix=0, p=0.65, p0=0.55)
 
 # under global null hypothesis
@@ -84,4 +84,4 @@ mams.sim(nsim=10000, nMat=matrix(c(44, 88), nrow=2, ncol=5), u=c(3.068, 2.169),
 
 }
 
-\keyword{ design }
+\keyword{design}

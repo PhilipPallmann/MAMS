@@ -23,14 +23,12 @@
 
 \method{summary}{MAMS.sim}(object, digits=max(3, getOption("digits") - 4), \dots)
 
-\method{print}{MAMS.stepdown}(x, digits=max(3, getOption("digits") - 4), ...)
+\method{print}{MAMS.stepdown}(x, digits=max(3, getOption("digits") - 4), \dots)
 
 \method{summary}{MAMS.stepdown}(object, digits=max(3, getOption("digits") - 4), \dots)
 
 \method{plot}{MAMS.stepdown}(x, col=NULL, pch=NULL, lty=NULL, main=NULL, xlab="Analysis", 
      ylab="Test statistic", ylim=NULL, type=NULL, bty="n", las=1, \dots)
-
-
 }
 
 \arguments{
@@ -72,12 +70,11 @@
 \value{Screen or graphics output.}
 
 \references{
-Magirr D, Jaki T, Whitehead J (2012) A generalized Dunnett Test for Multi-arm Multi-stage Clinical Studies with Treatment Selection. Biometrika. 99(2):494-501.\cr
+Magirr D, Jaki T, Whitehead J (2012) A generalized Dunnett test for multi-arm multi-stage clinical studies with treatment selection. Biometrika, 99(2), 494-501.\cr
 
+Stallard N, Todd S (2003) Sequential designs for phase III clinical trials incorporating treatment selection. Statistics in Medicine, 22(5), 689-703.\cr
 
-Stallard N, Todd S (2003) Sequential designs for phase III clinical trials incorporating treatment selection. Statistics in Medicine. 22, 689-703. \cr
-
-Magirr D, Stallard N, Jaki T (2014) Flexible sequential designs for multi-arm clinical trials. Statistics in Medicine. Published online. 
+Magirr D, Stallard N, Jaki T (2014) Flexible sequential designs for multi-arm clinical trials. Statistics in Medicine, 33(19), 3269-3279. 
 }
 
 \author{Thomas Jaki and Dominic Magirr}
@@ -85,8 +82,8 @@ Magirr D, Stallard N, Jaki T (2014) Flexible sequential designs for multi-arm cl
 \examples{
 \donttest{
 # 2-stage design with triangular boundaries
-res <- mams(K=4, J=2, alpha=0.05, power=0.9, r=1:2, r0=1:2, p=0.65 , p0=0.55, 
-            u.shape="triangular", l.shape="triangular", nstart=30)
+res <- mams(K=4, J=2, alpha=0.05, power=0.9, r=1:2, r0=1:2, p=0.65, p0=0.55, 
+            ushape="triangular", lshape="triangular", nstart=30)
 
 print(res)
 summary(res)
@@ -105,7 +102,6 @@ res <- stepdown.mams(nMat=matrix(c(10, 20), nrow=2, ncol=4),
 print(res)
 summary(res)
 plot(res)
-
 }
 
 \keyword{classes}

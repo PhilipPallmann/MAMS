@@ -1,4 +1,4 @@
-mams <- function(K=4, J=2, alpha=0.05, power=0.9, r=1:2, r0=1:2, p=0.75, p0=0.5, u.shape="obf", l.shape="fixed", lfix=0, ufix=NULL, nstart=1, sample.size=TRUE, N=20){
+mams <- function(K=4, J=2, alpha=0.05, power=0.9, r=1:2, r0=1:2, p=0.75, p0=0.5, ushape="obf", lshape="fixed", lfix=0, ufix=NULL, nstart=1, sample.size=TRUE, N=20){
 
 
   #require(mvtnorm) ## the function pmvnorm is required to evaluate multivariate normal probabilities
@@ -49,46 +49,46 @@ mams <- function(K=4, J=2, alpha=0.05, power=0.9, r=1:2, r0=1:2, p=0.75, p0=0.5,
   ##  The midpoint rule is used with a range of -6 to 6 in each dimension. 
   #############################################################################################################
 
-  typeI<-function(C,alpha,N,r,r0,r0diff,J,K,Sigma,u.shape,l.shape,lfix=NULL,ufix=NULL){
+  typeI<-function(C,alpha,N,r,r0,r0diff,J,K,Sigma,ushape,lshape,lfix=NULL,ufix=NULL){
 
     ########################################################################
     ## the form of the boundary constraints are determined as functions of C. 
     ######################################################################## 
-    if(!is.function(u.shape)){
-      if (u.shape=='obf'){
+    if(!is.function(ushape)){
+      if (ushape=='obf'){
         u<-C*sqrt(r[J]/r)
       }
-      else if (u.shape=='pocock'){
+      else if (ushape=='pocock'){
         u<-rep(C,J)
       }
-      else if (u.shape=='fixed'){
+      else if (ushape=='fixed'){
         u<-c(rep(ufix,J-1),C)
       } 
-      else if (u.shape=='triangular') {
+      else if (ushape=='triangular') {
         u<-C*(1+r/r[J])/sqrt(r) 
       }
     }else{
-      u <- C*u.shape(J)
+      u <- C*ushape(J)
     }
 
-    if(!is.function(l.shape)){
-      if (l.shape=='obf'){
+    if(!is.function(lshape)){
+      if (lshape=='obf'){
         l<- c(-C*sqrt(r[J]/r[1:(J-1)]),u[J])
       }
-      else if (l.shape=='pocock'){
+      else if (lshape=='pocock'){
         l<-c(rep(-C,J-1),u[J])
       }
-      else if (l.shape=='fixed'){
+      else if (lshape=='fixed'){
         l<-c(rep(lfix,J-1),u[J])
-      } else if (l.shape=='triangular') {
-        if(u.shape=="triangular"){
+      } else if (lshape=='triangular') {
+        if(ushape=="triangular"){
           l<--C*(1-3*r/r[J])/sqrt(r)
         }else{
           l<--C*(1-3*r/r[J])/sqrt(r)/(-1*(1-3)/sqrt(J))
         }
       }
     }else{
-      l <- c(C*l.shape(J)[1:(J-1)],u[J])
+      l <- c(C*lshape(J)[1:(J-1)],u[J])
     }
 
 
@@ -183,18 +183,18 @@ mams <- function(K=4, J=2, alpha=0.05, power=0.9, r=1:2, r0=1:2, p=0.75, p0=0.5,
   if(length(r)!=length(r0)){stop('Different length of allocation ratios on control and experimental treatments')}
   if(length(r)!=J){stop('Length of allocation ratios does not match number of stages')}
 
-  if(!is.function(u.shape)){
-    if(!u.shape%in%c("pocock","obf","triangular","fixed")){stop("Upper boundary does not match the available options")}
-    if(u.shape=="fixed" & is.null(ufix)){stop("ufix required when using a fixed upper boundary shape.")}
+  if(!is.function(ushape)){
+    if(!ushape%in%c("pocock","obf","triangular","fixed")){stop("Upper boundary does not match the available options")}
+    if(ushape=="fixed" & is.null(ufix)){stop("ufix required when using a fixed upper boundary shape.")}
   }else{
-    b <- u.shape(J)
+    b <- ushape(J)
     if(!all(sort(b,decreasing=TRUE)==b)){stop("Upper boundary shape is increasing")}
   }
-  if(!is.function(l.shape)){
-   if(!l.shape%in%c("pocock","obf","triangular","fixed")){stop("Lower boundary does not match the available options")}
-   if(l.shape=="fixed" & is.null(lfix)){stop("lfix required when using a fixed lower boundary shape.")}
+  if(!is.function(lshape)){
+   if(!lshape%in%c("pocock","obf","triangular","fixed")){stop("Lower boundary does not match the available options")}
+   if(lshape=="fixed" & is.null(lfix)){stop("lfix required when using a fixed lower boundary shape.")}
   }else{
-    b <- l.shape(J)
+    b <- lshape(J)
     if(!all(sort(b,decreasing=FALSE)==b)){stop("Lower boundary shape is decreasing")}
   }
  
@@ -237,43 +237,43 @@ mams <- function(K=4, J=2, alpha=0.05, power=0.9, r=1:2, r0=1:2, p=0.75, p0=0.5,
   ################################
   uJ<-NULL
   ## making sure that lfix is not larger then uJ
-  try(uJ<-uniroot(typeI,c(qnorm(1-alpha)/2,5),alpha=alpha,N=N,r=r,r0=r0,r0diff=r0diff,J=J,K=K,Sigma=Sigma,u.shape=u.shape,l.shape=l.shape,lfix=lfix,ufix=ufix,tol=0.001)$root, silent=TRUE)
+  try(uJ<-uniroot(typeI,c(qnorm(1-alpha)/2,5),alpha=alpha,N=N,r=r,r0=r0,r0diff=r0diff,J=J,K=K,Sigma=Sigma,ushape=ushape,lshape=lshape,lfix=lfix,ufix=ufix,tol=0.001)$root, silent=TRUE)
   if(is.null(uJ)){stop("Lower boundary (lfix) is too large.")}
 
-  if(!is.function(u.shape)){
-    if (u.shape=='obf'){
+  if(!is.function(ushape)){
+    if (ushape=='obf'){
       u<-uJ*sqrt(r[J]/r)
     }
-    else if (u.shape=='pocock'){
+    else if (ushape=='pocock'){
       u<-rep(uJ,J)
     }
-    else if (u.shape=='fixed'){
+    else if (ushape=='fixed'){
       u<-c(rep(ufix,J-1),uJ)
-    } else if (u.shape=='triangular') {
+    } else if (ushape=='triangular') {
       u<-uJ*(1+r/r[J])/sqrt(r) 
     }
   }else{
-    u <- uJ*u.shape(J)
+    u <- uJ*ushape(J)
   }
 
-  if(!is.function(l.shape)){
-    if (l.shape=='obf'){
+  if(!is.function(lshape)){
+    if (lshape=='obf'){
       l<- c(-uJ*sqrt(r[J]/r[1:(J-1)]),u[J])
     }
-    else if (l.shape=='pocock'){
+    else if (lshape=='pocock'){
       l<-c(rep(-uJ,J-1),u[J])
     }
-    else if (l.shape=='fixed'){
+    else if (lshape=='fixed'){
       l<-c(rep(lfix,J-1),u[J])
-    } else if (l.shape=='triangular') {
-       if(u.shape=="triangular"){
+    } else if (lshape=='triangular') {
+       if(ushape=="triangular"){
           l<--uJ*(1-3*r/r[J])/sqrt(r)
        }else{
           l<--uJ*(1-3*r/r[J])/sqrt(r)/(-1*(1-3)/sqrt(J))
        }
     }
   }else{
-    l <- c(uJ*l.shape(J)[1:(J-1)],u[J])
+    l <- c(uJ*lshape(J)[1:(J-1)],u[J])
   }
 
 
@@ -281,10 +281,10 @@ mams <- function(K=4, J=2, alpha=0.05, power=0.9, r=1:2, r0=1:2, p=0.75, p0=0.5,
   ## Find alpha.star
   #########################################################
   alpha.star <- numeric(J)
-  alpha.star[1] <- typeI(u[1], alpha = 0, N = N, r = r[1], r0 = r0[1], r0diff = r0diff[1], J = 1, K = K, Sigma = Sigma, u.shape = "fixed", l.shape = "fixed", lfix = NULL, ufix = NULL)
+  alpha.star[1] <- typeI(u[1], alpha = 0, N = N, r = r[1], r0 = r0[1], r0diff = r0diff[1], J = 1, K = K, Sigma = Sigma, ushape = "fixed", lshape = "fixed", lfix = NULL, ufix = NULL)
   if (J > 1){
       for (j in 2:J){
-          alpha.star[j] <- typeI(u[j], alpha = 0, N = N, r = r[1:j], r0 = r0[1:j], r0diff = r0diff[1:j], J = j, K = K, Sigma = Sigma, u.shape = "fixed", l.shape = "fixed", lfix = l[1:(j - 1)], ufix = u[1:(j - 1)])
+          alpha.star[j] <- typeI(u[j], alpha = 0, N = N, r = r[1:j], r0 = r0[1:j], r0diff = r0diff[1:j], J = j, K = K, Sigma = Sigma, ushape = "fixed", lshape = "fixed", lfix = l[1:(j - 1)], ufix = u[1:(j - 1)])
       }
   }
 

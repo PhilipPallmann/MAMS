@@ -149,7 +149,7 @@ stepdown.mams <- function(nMat = matrix(c(10, 20), nrow=2, ncol=4), alpha.star =
   res$J <- J
   res$alpha.star <- alpha.star
   res$selection <- selection
-  res$z.scores <- NULL
+  res$zscores <- NULL
   res$selected.trts <- list(1:K)
   class(res) <- "MAMS.stepdown"
 

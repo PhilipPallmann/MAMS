@@ -14,10 +14,10 @@ Question or suggestions about the package can be sent to
 --------------------CHANGE LOG--------------------------------------------
 Version 1.02
 
+  o New functions 'ordinal.mams' and 'event.mams' for non-normal endpoints
   o Harmonised function and input names (most notably, 'step_down_mams' and
     'update_mams' are now called 'stepdown.mams' and 'update.mams')
-  o xxx
-
+    
 --------------------------------------------------------------------------
 Version 1.01
 

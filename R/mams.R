@@ -1,4 +1,4 @@
-mams <- function(K=4, J=2, alpha=0.05, power=0.9, r=1:2, r0=1:2, p=0.75, p0=0.5, ushape="obf", lshape="fixed", lfix=0, ufix=NULL, nstart=1, sample.size=TRUE, N=20){
+mams <- function(K=4, J=2, alpha=0.05, power=0.9, r=1:2, r0=1:2, p=0.75, p0=0.5, ushape="obf", lshape="fixed", ufix=NULL, lfix=0, nstart=1, sample.size=TRUE, N=20){
 
 
   #require(mvtnorm) ## the function pmvnorm is required to evaluate multivariate normal probabilities

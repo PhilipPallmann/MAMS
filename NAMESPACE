@@ -21,6 +21,7 @@ export(
        mams.sim,
        MAMSNews,
        new.bounds,
+       ordinal.mams,
        stepdown.mams,
        update.mams
       )

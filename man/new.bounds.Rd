@@ -11,8 +11,8 @@ The function determines updated boundaries of a multi-arm multi-stage study base
 
 \usage{
 new.bounds(K=3, J=2, alpha=0.05, nMat=matrix(c(10, 20), nrow=2, ncol=4), 
-           u=NULL, l=NULL, ushape="obf", lshape="fixed", lfix=0,
-           ufix=NULL, N=20)
+           u=NULL, l=NULL, ushape="obf", lshape="fixed", ufix=NULL,
+           lfix=0, N=20)
 }
 
 \arguments{
@@ -23,7 +23,7 @@ new.bounds(K=3, J=2, alpha=0.05, nMat=matrix(c(10, 20), nrow=2, ncol=4),
   \item{u}{Vector of previously used upper boundaries (default=NULL).}
   \item{l}{Vector of previously used upper boundaries (default=NULL).}
   \item{ushape}{Shape of upper boundary. Either a function specifying the shape or one of \code{"pocock"}, \code{"obf"} (the default), \code{"triangular"} and \code{"fixed"}. See details.}
-  \item{lshape}{Shape of lower boundary. Either a function specifying the shape or one of \code{"pocock"}, \code{"obf"} (the default), \code{"triangular"} and \code{"fixed"}. See details.}
+  \item{lshape}{Shape of lower boundary. Either a function specifying the shape or one of \code{"pocock"}, \code{"obf"}, \code{"triangular"} and \code{"fixed"} (the default). See details.}
   \item{ufix}{Fixed upper boundary (default=NULL). Only used if \code{shape="fixed"}.}
   \item{lfix}{Fixed lower boundary (default=0). Only used if \code{shape="fixed"}.}
   \item{N}{Number of quadrature points per dimension in the outer integral (default=20).}

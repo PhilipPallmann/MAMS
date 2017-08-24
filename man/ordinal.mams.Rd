@@ -1,8 +1,8 @@
-\name{mams}
-\alias{mams}
+\name{ordinal.mams}
+\alias{ordinal.mams}
 
 \title{
-Function to design multi-arm multi-stage studies with normal endpoints
+Function to design multi-arm multi-stage studies with ordered categorical or binary endpoints
 }
 
 \description{
@@ -10,20 +10,21 @@ The function determines the boundaries of a multi-arm multi-stage study for a gi
 }
 
 \usage{
-mams(K=4, J=2, alpha=0.05, power=0.9, r=1:2, r0=1:2, p=0.75, p0=0.5, 
-     ushape="obf", lshape="fixed", ufix=NULL, lfix=0, nstart=1, 
-     sample.size=TRUE, N=20)
+ordinal.mams(prob=c(0.35, 0.4, 0.25), or=2, or0=1.2, K=4, J=2, alpha=0.05,
+     power=0.9, r=1:2, r0=1:2, ushape="obf", lshape="fixed", ufix=NULL,
+     lfix=0, nstart=1, sample.size=TRUE, N=20)
 }
 
 \arguments{
+  \item{prob}{}
+  \item{or}{Interesting treatment effect on the scale of odds ratios. See Details (default=2).}
+  \item{or0}{Uninteresting treatment effect on the scale of odds ratios. See Details (default=1.2).}
   \item{K}{Number of experimental treatments (default=4).}
   \item{J}{Number of stages (default=2).}
   \item{alpha}{One-sided familywise error rate (default=0.05).}
   \item{power}{Desired power (default=0.9).}
   \item{r}{Vector of allocation ratios (default=1:2).}
   \item{r0}{Vector ratio on control (default=1:2).}
-  \item{p}{Interesting treatment effect. See Details (default=0.75).}
-  \item{p0}{Uninteresting treatment effect. See Details (default=0.5).}
   \item{ushape}{Shape of upper boundary. Either a function specifying the shape or one of \code{"pocock"}, \code{"obf"} (the default), \code{"triangular"} and \code{"fixed"}. See details.}
   \item{lshape}{Shape of lower boundary. Either a function specifying the shape or one of \code{"pocock"}, \code{"obf"}, \code{"triangular"} and \code{"fixed"} (the default). See details.}
   \item{ufix}{Fixed upper boundary (default=NULL). Only used if \code{shape="fixed"}.}
@@ -61,14 +62,18 @@ An object of the class MAMS containing the following components:\cr
 \references{
 Magirr D, Jaki T, Whitehead J (2012) A generalized Dunnett test for multi-arm multi-stage clinical studies with treatment selection. Biometrika, 99(2), 494-501.\cr
 
+Jaki T, Magirr D (2013) Considerations on covariates and endpoints in multi-arm multi-stage clinical trials selecting all promising treatments. Statistics in Medicine, 32(7), 1150-1163.\cr
+
 Pocock SJ (1977) Group sequential methods in the design and analysis of clinical trials. Biometrika, 64(2), 191-199.\cr
 
 O'Brien PC, Fleming TR (1979) A multiple testing procedure for clinical trials. Biometrics, 35(3), 549-556.\cr 
 
-Whitehead J (1997) The Design and Analysis of Sequential Clinical Trials. Wiley: Chichester, UK.\cr 
+Whitehead J (1997) The Design and Analysis of Sequential Clinical Trials. Wiley: Chichester, UK.\cr
+
+Whitehead J, Jaki T (2009) One- and two-stage design proposals for a phase II trial comparing three active treatments with control using an ordered categorical endpoint. Statistics in Medicine, 28(5), 828–847.
 }
 
-\author{Thomas Jaki and Dominic Magirr}
+\author{Philip Pallmann}
 
 \examples{
 ## A fixed sample (single stage) design

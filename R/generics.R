@@ -1,5 +1,6 @@
 MAMSNews <- function() file.show(system.file("NEWS", package="MAMS"))
 
+
 print.MAMS <- function (x, digits=max(3, getOption("digits") - 4), ...) {
 
   cat(paste("Design parameters for a ", x$J, " stage trial with ", x$K, " treatments\n\n",sep=""))
@@ -27,7 +28,6 @@ print.MAMS <- function (x, digits=max(3, getOption("digits") - 4), ...) {
   print(res)
 
 }
-
 
 summary.MAMS<-function(object, digits=max(3, getOption("digits") - 4), ...){
 
@@ -108,7 +108,6 @@ summary.MAMS.sim<-function(object, digits=max(3, getOption("digits") - 4), ...){
 }
 
 
-
 print.MAMS.stepdown<- function (x, digits=max(3, getOption("digits") - 4), ...) {
 
     get.hyp <- function(n){ # find the nth intersection hypothesis (positions of 1s in binary n)
@@ -147,14 +146,12 @@ print.MAMS.stepdown<- function (x, digits=max(3, getOption("digits") - 4), ...) 
     }
 }
 
-
 summary.MAMS.stepdown<-function(object, digits=max(3, getOption("digits") - 4), ...){
 
   print(object)
 
 }
              
-
 plot.MAMS.stepdown <- function (x, col=NULL, pch=NULL, lty=NULL, main=NULL, xlab="Analysis", ylab="Test statistic", ylim=NULL, type=NULL, bty="n", las=1, ...) {
 
     get.hyp <- function(n){ # find the nth intersection hypothesis (positions of 1s in binary n)

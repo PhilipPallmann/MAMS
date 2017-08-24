@@ -1,4 +1,4 @@
-new.bounds <- function(K=3, J=2, alpha=0.05, nMat=matrix(c(10,20),nrow=2,ncol=4), u=NULL, l=NULL, ushape="obf", lshape="fixed", lfix=0, ufix=NULL, N=20){
+new.bounds <- function(K=3, J=2, alpha=0.05, nMat=matrix(c(10,20),nrow=2,ncol=4), u=NULL, l=NULL, ushape="obf", lshape="fixed", ufix=NULL, lfix=0, N=20){
 
 
   #require(mvtnorm) ## the function pmvnorm is required to evaluate multivariate normal probabilities

@@ -178,7 +178,7 @@ mams <- function(K=4, J=2, alpha=0.05, power=0.9, r=1:2, r0=1:2, p=0.75, p0=0.5,
   if(N>3 & N<=10){warning("Number of points for integration by quadrature is small which may result in inaccurate solutions.")}
   if(p<0 | p>1 | p0<0 | p0>1){stop("Treatment effect parameter not within 0 and 1.")}
   if(alpha<0 | alpha>1 | power<0 | power>1){stop("Error rate or power not between 0 and 1.")}
-  if(p<p0){stop("Interesting treatment effect smaller than uninteresting effect.")}
+  if(p<=p0){stop("Interesting treatment effect must be larger than uninteresting effect.")}
   if(p0<0.5 ){warning("Uninteresting treatment effect less than 0.5 which implies that reductions in effect over placebo are interesting.")}
   if(length(r)!=length(r0)){stop("Different length of allocation ratios on control and experimental treatments.")}
   if(length(r)!=J){stop("Length of allocation ratios does not match number of stages.")}

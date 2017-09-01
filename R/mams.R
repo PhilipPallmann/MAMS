@@ -236,7 +236,7 @@ mams <- function(K=4, J=2, alpha=0.05, power=0.9, r=1:2, r0=1:2, p=0.75, p0=0.5,
   ## Find boundaries using 'typeI'
   ################################
   
-  # Quick & dirty fix to enable single-stage design with specification lshape="obf" 
+  # Quick and dirty fix to enable single-stage design with specification lshape="obf" 
   if(J==1 & lshape="obf"){
     lshape <- "pocock"
   }

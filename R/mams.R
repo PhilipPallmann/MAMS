@@ -250,7 +250,8 @@ mams <- function(K=4, J=2, alpha=0.05, power=0.9, r=1:2, r0=1:2, p=0.75, p0=0.5,
   uJ<-NULL
   ## making sure that lfix is not larger then uJ
   try(uJ<-uniroot(typeI,c(qnorm(1-alpha)/2,5),alpha=alpha,N=N,r=r,r0=r0,r0diff=r0diff,J=J,K=K,Sigma=Sigma,ushape=ushape,lshape=lshape,lfix=lfix,ufix=ufix,tol=0.001)$root, silent=TRUE)
-  if(is.null(uJ)){stop("Lower boundary (lfix) is too large.")}
+  #if(is.null(uJ)){stop("Lower boundary (lfix) is too large.")}
+  if(is.null(uJ)){stop("No boundaries can be found.")}
 
   if(!is.function(ushape)){
     if (ushape=='obf'){

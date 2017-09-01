@@ -182,6 +182,10 @@ mams <- function(K=4, J=2, alpha=0.05, power=0.9, r=1:2, r0=1:2, p=0.75, p0=0.5,
   if(p0<0.5 ){warning("Uninteresting treatment effect less than 0.5 which implies that reductions in effect over placebo are interesting.")}
   if(length(r)!=length(r0)){stop("Different length of allocation ratios on control and experimental treatments.")}
   if(length(r)!=J){stop("Length of allocation ratios does not match number of stages.")}
+  
+  if(is.function(ushape) & is.function(lshape)){
+    warning("You have specified your own functions for both the lower and upper boundary. Please check carefully whether the resulting boundaries are sensible.")
+  }
 
   if(!is.function(ushape)){
     if(!ushape%in%c("pocock","obf","triangular","fixed")){stop("Upper boundary does not match the available options.")}

@@ -180,22 +180,22 @@ mams <- function(K=4, J=2, alpha=0.05, power=0.9, r=1:2, r0=1:2, p=0.75, p0=0.5,
   if(alpha<0 | alpha>1 | power<0 | power>1){stop("Error rate or power not between 0 and 1.")}
   if(p<p0){stop("Interesting treatment effect smaller than uninteresting effect.")}
   if(p0<0.5 ){warning("Uninteresting treatment effect less than 0.5 which implies that reductions in effect over placebo are interesting.")}
-  if(length(r)!=length(r0)){stop('Different length of allocation ratios on control and experimental treatments')}
-  if(length(r)!=J){stop('Length of allocation ratios does not match number of stages')}
+  if(length(r)!=length(r0)){stop("Different length of allocation ratios on control and experimental treatments.")}
+  if(length(r)!=J){stop("Length of allocation ratios does not match number of stages.")}
 
   if(!is.function(ushape)){
-    if(!ushape%in%c("pocock","obf","triangular","fixed")){stop("Upper boundary does not match the available options")}
+    if(!ushape%in%c("pocock","obf","triangular","fixed")){stop("Upper boundary does not match the available options.")}
     if(ushape=="fixed" & is.null(ufix)){stop("ufix required when using a fixed upper boundary shape.")}
   }else{
     b <- ushape(J)
-    if(!all(sort(b,decreasing=TRUE)==b)){stop("Upper boundary shape is increasing")}
+    if(!all(sort(b,decreasing=TRUE)==b)){stop("Upper boundary shape is increasing.")}
   }
   if(!is.function(lshape)){
-   if(!lshape%in%c("pocock","obf","triangular","fixed")){stop("Lower boundary does not match the available options")}
+   if(!lshape%in%c("pocock","obf","triangular","fixed")){stop("Lower boundary does not match the available options.")}
    if(lshape=="fixed" & is.null(lfix)){stop("lfix required when using a fixed lower boundary shape.")}
   }else{
     b <- lshape(J)
-    if(!all(sort(b,decreasing=FALSE)==b)){stop("Lower boundary shape is decreasing")}
+    if(!all(sort(b,decreasing=FALSE)==b)){stop("Lower boundary shape is decreasing.")}
   }
  
   ############################################################################
@@ -235,6 +235,12 @@ mams <- function(K=4, J=2, alpha=0.05, power=0.9, r=1:2, r0=1:2, p=0.75, p0=0.5,
   ################################
   ## Find boundaries using 'typeI'
   ################################
+  
+  # Quick & dirty fix to enable single-stage design with specification lshape="obf" 
+  if(J==1 & lshape="obf"){
+    lshape <- "pocock"
+  }
+  
   uJ<-NULL
   ## making sure that lfix is not larger then uJ
   try(uJ<-uniroot(typeI,c(qnorm(1-alpha)/2,5),alpha=alpha,N=N,r=r,r0=r0,r0diff=r0diff,J=J,K=K,Sigma=Sigma,ushape=ushape,lshape=lshape,lfix=lfix,ufix=ufix,tol=0.001)$root, silent=TRUE)

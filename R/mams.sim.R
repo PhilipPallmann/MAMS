@@ -3,7 +3,21 @@
 ######################################################################
 
 mams.sim <- function(nsim=1000, nMat=matrix(c(44, 88), nrow=2, ncol=5), u=c(3.068, 2.169),
-                     l=c(0.000, 2.169), pv=rep(0.5, 4), ptest=1) { 
+                     l=c(0.000, 2.169), pv=rep(0.5, 4), deltav=NULL, sd=NULL, ptest=1) { 
+  
+  if(is.numeric(pv) & is.numeric(deltav) & is.numeric(sd)){
+    stop("Specify the effect sizes either via pv or via deltav and sd, and set the other parameters to NULL.")
+  }
+  
+  if(is.numeric(pv)){
+    if(pv<0 | pv>1){stop("Treatment effect parameter not within 0 and 1.")}
+  }else{
+    if(is.numeric(deltav) & is.numeric(sd)){
+      if(sd<=0){stop("Standard deviation must be positive.")}
+    }else{
+      stop("Specify the effect sizes either via pv or via deltav and sd.")
+    }
+  }
 
 ########################################################################################################
 ## 'generalsim' simulates the trial once. For general number of patients per arm per stage - 
@@ -81,9 +95,15 @@ mams.sim <- function(nsim=1000, nMat=matrix(c(44, 88), nrow=2, ncol=5), u=c(3.06
   if(!is.matrix(R) && is.vector(R))  R <- t(as.matrix( nMat[, -1]/nMat[1, 1]))
 
   n <- nMat[1,1]
-  deltas<-sqrt(2)*qnorm(pv)
-  sig<-1
-
+  
+  if(is.numeric(pv)){
+    deltas <- sqrt(2) * qnorm(pv)
+    sig <- 1
+  }else{
+    deltas <- deltav
+    sig <- sd
+  }
+  
   reps<-sapply(rep(n,nsim),sim,l,u,R,r0,deltas,sig)
 
   ### power to reject any of the hypothesis corresponding to the treatments in ptest

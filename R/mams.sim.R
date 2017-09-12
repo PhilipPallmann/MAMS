@@ -11,8 +11,10 @@ mams.sim <- function(nsim=1000, nMat=matrix(c(44, 88), nrow=2, ncol=5), u=c(3.06
   
   if(is.numeric(pv)){
     if(pv<0 | pv>1){stop("Treatment effect parameter not within 0 and 1.")}
+    if(length(pv)!=(ncol(nMat) - 1)) stop("Length of pv is not K.")
   }else{
     if(is.numeric(deltav) & is.numeric(sd)){
+      if(length(deltav)!=(ncol(nMat) - 1)) stop("Length of deltav is not K.")
       if(sd<=0){stop("Standard deviation must be positive.")}
     }else{
       stop("Specify the effect sizes either via pv or via deltav and sd.")
@@ -83,8 +85,6 @@ mams.sim <- function(nsim=1000, nMat=matrix(c(44, 88), nrow=2, ncol=5), u=c(3.06
     return(list(rej=rej,pow=pow,ess=ss,hmat=hmat))
   }
 
-  if(length(pv)!=(ncol(nMat)-1)) stop("Length of pv is not K")
-
   r0 <- nMat[,1]/nMat[1,1]
   if(ncol(nMat)==2){
     R <-  t(t(nMat[,-1]/nMat[1,1]))
@@ -136,11 +136,8 @@ mams.sim <- function(nsim=1000, nMat=matrix(c(44, 88), nrow=2, ncol=5), u=c(3.06
   return(res)
 }
 
-
 #r<-mams.sim(10000,nMat=matrix(c(40,80),nrow=2,ncol=4),c(0,2.058),c(Inf,2.058),pv=c(0.65,0.55,0.55))
 ## type I error on treatment 1
 #mean(r[2,])
 ## type I error overall 
 #mean(r[1,])
-
-

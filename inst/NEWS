@@ -14,8 +14,9 @@ Question or suggestions about the package can be sent to
 --------------------CHANGE LOG--------------------------------------------
 Version 1.1
 
-  o New functions 'ordinal.mams' for ordinal and binary endpoints and
-    'tite.mams' for time-to-event endpoints
+  o New function 'ordinal.mams' for ordinal and binary endpoints
+  o New function 'tite.mams' for time-to-event endpoints
+  o Effect sizes can be specified on the traditional or probability scale
   o Harmonised function and input names (most notably, 'step_down_mams' and
     'update_mams' are now called 'stepdown.mams' and 'update.mams')
   o Corrected minor bugs in mams
@@ -86,7 +87,6 @@ Version 0.2
   o Documentation updated
 
 --------------------------------------------------------------------------
-
 Version 0.1
 
   o Initial release

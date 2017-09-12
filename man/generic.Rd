@@ -79,8 +79,7 @@ Magirr D, Stallard N, Jaki T (2014) Flexible sequential designs for multi-arm cl
 
 \author{Thomas Jaki, Dominic Magirr, Philip Pallmann}
 
-\examples{
-\donttest{
+\examples{\donttest{
 # 2-stage design with triangular boundaries
 res <- mams(K=4, J=2, alpha=0.05, power=0.9, r=1:2, r0=1:2, p=0.65, p0=0.55, 
             ushape="triangular", lshape="triangular", nstart=30)
@@ -88,7 +87,7 @@ res <- mams(K=4, J=2, alpha=0.05, power=0.9, r=1:2, r0=1:2, p=0.65, p0=0.55,
 print(res)
 summary(res)
 plot(res)
-}
+
 res <- mams.sim(nsim=10000, nMat=matrix(c(44, 88), nrow=2, ncol=5), u=c(3.068, 2.169),
                 l=c(0.000, 2.169), pv=c(0.65, 0.55, 0.55, 0.55), ptest=c(1:2, 4))
 
@@ -102,6 +101,6 @@ res <- stepdown.mams(nMat=matrix(c(10, 20), nrow=2, ncol=4),
 print(res)
 summary(res)
 plot(res)
-}
+}}
 
 \keyword{classes}

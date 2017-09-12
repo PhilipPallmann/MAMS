@@ -61,12 +61,9 @@ Whitehead J (1997) The Design and Analysis of Sequential Clinical Trials. Wiley:
 
 \author{Thomas Jaki and Dominic Magirr}
 
-\examples{
-######
-#### Note that some of these examples may take a few minutes to run
-######
-\dontrun{
+\examples{\donttest{
 # Note that some of these examples may take a few minutes to run
+
 # 2-stage design with O'Brien & Fleming efficacy and zero futility boundary with 
 # equal sample size per arm and stage. Results are equivalent to using 
 # mams(K=4, J=2, alpha=0.05, power=0.9, r=1:2, r0=1:2, ushape="obf", lshape="fixed", 
@@ -84,7 +81,6 @@ new.bounds(K=4, J=2, alpha=0.05, nMat=matrix(c(10, 20), nrow=2, ncol=5), u=NULL,
 new.bounds(K=4, J=2, alpha=0.05, 
            nMat=matrix(c(10, 28, 10, 28, 18, 28, 10, 28, 13, 28), nrow=2, ncol=5), 
            u=3.068, l=0, ushape="obf", lshape="fixed", lfix=0)
-}
-}
+}}
 
 \keyword{design}

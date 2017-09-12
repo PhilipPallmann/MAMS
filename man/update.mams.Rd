@@ -49,8 +49,7 @@ Magirr D, Stallard N, Jaki T (2014) Flexible sequential designs for multi-arm cl
 
 \author{Dominic Magirr}
 
-\examples{
-
+\examples{\donttest{
 # 2-stage 3-treatments versus control design
 # all promising treatments are selected:
 orig_mams <- stepdown.mams(nMat=matrix(c(10, 20), nrow=2, ncol=4), 
@@ -85,6 +84,6 @@ orig_mams <- stepdown.mams(nMat=matrix(c(10, 20), nrow=2, ncol=4),
 
 update.mams(orig_mams, nobs=c(9, 8, 13, 11), zscores=c(1.1, -0.5, 0.2), 
             selected.trts=c(1, 3), nfuture=NULL)
-}
+}}
 
 \keyword{design}

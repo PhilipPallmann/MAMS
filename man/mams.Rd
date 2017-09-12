@@ -78,7 +78,7 @@ Whitehead J (1997) The Design and Analysis of Sequential Clinical Trials. Wiley:
 
 \author{Thomas Jaki and Dominic Magirr}
 
-\examples{
+\examples{\donttest{
 ## A fixed sample (single stage) design specified on the p scale
 mams(K=4, J=1, alpha=0.05, power=0.9, r=1, r0=1, p=0.65, p0=0.55)
 
@@ -91,9 +91,9 @@ mams(K=4, J=1, alpha=0.05, power=0.9, r=1, r0=1, p=NULL, p0=NULL,
 mams(K=4, J=2, alpha=0.05, power=0.9, r=1:2, r0=1:2, p=0.65, p0=0.55, 
      ushape="obf", lshape="fixed", lfix=0, nstart=40)
 
-\dontrun{
 # Note that these examples may take a few minutes to run
-# 3-stage design with Triangular efficacy and futility boundary
+
+## 3-stage design with Triangular efficacy and futility boundary
 mams(K=4, J=3, alpha=0.05, power=0.9, r=1:3, r0=1:3, p=0.65, p0=0.55, 
      ushape="triangular", lshape="triangular", nstart=30)
 
@@ -106,8 +106,6 @@ mams(K=6, J=3, alpha=0.05, power=0.9, r=1:3, r0=1:3, p=0.7, p0=0.5,
 ## Twice as many patients are randomized to control at each stage.
 mams(K=4, J=2, alpha=0.05, power=0.9, r=1:2, r0=c(2, 4), p=0.65, p0=0.55, 
      ushape="obf", lshape="fixed", lfix=0, nstart=30)
-}
-
-}
+}}
 
 \keyword{ design }

@@ -10,7 +10,7 @@ mams.sim <- function(nsim=1000, nMat=matrix(c(44, 88), nrow=2, ncol=5), u=c(3.06
   }
   
   if(is.numeric(pv)){
-    if(pv<0 | pv>1){stop("Treatment effect parameter not within 0 and 1.")}
+    if(any(pv<0) | any(pv>1)){stop("Treatment effect parameter not within 0 and 1.")}
     if(length(pv)!=(ncol(nMat) - 1)) stop("Length of pv is not K.")
   }else{
     if(is.numeric(deltav) & is.numeric(sd)){

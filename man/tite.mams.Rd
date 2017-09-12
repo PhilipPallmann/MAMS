@@ -63,10 +63,10 @@ Whitehead J (2001) Predicting the duration of sequential survival studies. Drug 
 
 \author{Philip Pallmann, Dominic Magirr}
 
-\examples{
+\examples{\donttest{
 ## An example 2-stage design with triangular efficacy and futility boundaries
 tite.mams(hr=2, hr0=1.5, K=3, J=2, alpha=0.05, power=0.9,
           r=1:2, r0=1:2, ushape="triangular", lshape="triangular")
-}
+}}
 
 \keyword{design}

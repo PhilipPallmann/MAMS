@@ -227,6 +227,7 @@ mams <- function(K=4, J=2, alpha=0.05, power=0.9, r=1:2, r0=1:2, p=0.75, p0=0.5,
   }else{
     delta <- delta
     delta0 <- delta0
+    p0 <- pnorm(delta0/sqrt(2 * sd^2)) # for subsequent if(J==1 & p0==0.5)
     sig <- sd
   }
   

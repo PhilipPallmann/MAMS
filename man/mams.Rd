@@ -12,7 +12,7 @@ The function determines the boundaries of a multi-arm multi-stage study for a gi
 \usage{
 mams(K=4, J=2, alpha=0.05, power=0.9, r=1:2, r0=1:2, p=0.75, p0=0.5, 
      delta=NULL, delta0=NULL, sd=NULL, ushape="obf", lshape="fixed",
-     ufix=NULL, lfix=0, nstart=1, sample.size=TRUE, N=20)
+     ufix=NULL, lfix=0, nstart=1, nstop=NULL, sample.size=TRUE, N=20)
 }
 
 \arguments{
@@ -32,6 +32,7 @@ mams(K=4, J=2, alpha=0.05, power=0.9, r=1:2, r0=1:2, p=0.75, p0=0.5,
   \item{ufix}{Fixed upper boundary (default=NULL). Only used if \code{shape="fixed"}.}
   \item{lfix}{Fixed lower boundary (default=0). Only used if \code{shape="fixed"}.}
   \item{nstart}{Starting point for finding the sample size (default=1).}
+  \item{nstop}{Stopping point for finding the sample size (default=NULL).}
   \item{sample.size}{Logical if sample size should be found as well (default=TRUE).}
   \item{N}{Number of quadrature points per dimension in the outer integral (default=20).}
 }
@@ -42,6 +43,8 @@ This function finds the boundaries and sample size of a multi-arm multi-stage st
 The design is found under the least favorable configuration, which requires an interesting treatment effect \code{p} that if present we would like to find with high probability and an uninteresting effect \code{p0}. Both \code{p} and \code{p0} are parameterized as \eqn{P(X_k > X_0 ) = p}{P(X_k > X_0 ) = p}, that is the probability of a randomly selected person on treatment k observing a better outcome than a random person on control. For \code{p=0.5} the experimental treatment and control perform equally well. The advantage of this paramterization is that no knowledge about the variance is required. To convert traditional effect sizes, \eqn{\delta}{delta} to this format use \eqn{p=\Phi(\frac{\delta}{\sqrt{2}\sigma})}{Phi(delta/(2^0.5*sigma))}. Alternatively, the interesting and uninteresting effect size can also be specified directly on the traditional scale of \code{delta} and \code{delta} with an additional specification of the standard deviation \code{sd} assumed to be known.\cr
 
 The shape of the boundaries (\code{ushape}, \code{lshape}) are either using the predefined shapes following Pocock (1977), O'Brien & Fleming (1979) or the triangular Test (Whitehead, 1997) using options \code{"pocock"}, \code{"obf"} or \code{"triangular"} respectively, are constant (option \code{"fixed"}) or supplied in as a function. If a function is passed it should require exactly one argument specifying the number of stages and return a vector of the same length. The lower boundary shape is required to be non-decreasing while the upper boundary shape needs to be non-increasing. If a fixed lower boundary is used, \code{lfix} must be smaller than \eqn{\Phi^{-1}(1-\alpha)/2}{Phi(1-alpha)/2} to ensure that it is smaller than the upper boundary.\cr
+
+The default starting point for finding the sample size is \code{nstart=1}, and the default point where the search is stopped (when \code{nstop=NULL}) is 3 times the sample size of the corresponding fixed single-stage design.\cr
 
 Computation of designs with more than four stages are very time consuming and not advised. The parameter \code{sample.size} controls whether the required sample size is computed as well. Setting to \code{FALSE} approximately halves the compuation time.\cr
 }

@@ -1,6 +1,5 @@
 mams <- function(K=4, J=2, alpha=0.05, power=0.9, r=1:2, r0=1:2, p=0.75, p0=0.5, delta=NULL, delta0=NULL, sd=NULL,
-                 ushape="obf", lshape="fixed", ufix=NULL, lfix=0, nstart=1, sample.size=TRUE, N=20){
-
+                 ushape="obf", lshape="fixed", ufix=NULL, lfix=0, nstart=1, nstop=NULL, sample.size=TRUE, N=20){
 
   #require(mvtnorm) ## the function pmvnorm is required to evaluate multivariate normal probabilities
 
@@ -310,7 +309,6 @@ mams <- function(K=4, J=2, alpha=0.05, power=0.9, r=1:2, r0=1:2, p=0.75, p0=0.5,
     l <- c(uJ*lshape(J)[1:(J-1)],u[J])
   }
 
-
   #########################################################
   ## Find alpha.star
   #########################################################
@@ -322,8 +320,6 @@ mams <- function(K=4, J=2, alpha=0.05, power=0.9, r=1:2, r0=1:2, p=0.75, p0=0.5,
       }
   }
 
-
-  
   #############################################################
   ##  Now find samplesize for arm 1 stage 1 (n)  using 'typeII'.
   ##  Sample sizes for all stages are then determined by
@@ -342,22 +338,36 @@ mams <- function(K=4, J=2, alpha=0.05, power=0.9, r=1:2, r0=1:2, p=0.75, p0=0.5,
 
   }else{
 
-    n<-nstart 
+    n <- nstart 
     ###################################################################################################
     ## program could be very slow starting at n=0, may want to start at more sensible lower bound on n
     ## unlike type I error, power equation does not neccessarily have unique solution n therefore search
     ## for smallest solution:
     ####################################################################################################
-  
-    pow<-0
+    
+    pow <- 0
     if(sample.size){
-      while (pow==0){
-        n<-n+1
-        pow<-(typeII(n,beta=1-power,l=l,u=u,N=N,r=r,r0=r0,r0diff=r0diff,J=J,K=K,delta=delta,delta0=delta0,sig=sig,Sigma=Sigma)<0)
+      
+      if(is.null(nstop)){
+        nx <- nstart
+        po <- 0
+        while (po==0){
+          nx <- nx + 1
+          po <- (typeII(nx, beta=1 - power, l=l, u=u, N=N, r=r, r0=r0, r0diff=r0diff, J=1,
+                        K=K, delta=delta, delta0=delta0, sig=sig, Sigma=Sigma) < 0)
+        }
+        nstop <- 3 * nx
       }
+      
+      while (pow==0 & n<=nstop){
+        n <- n + 1
+        pow <- (typeII(n, beta=1 - power, l=l, u=u, N=N, r=r, r0=r0, r0diff=r0diff, J=J,
+                       K=K, delta=delta, delta0=delta0, sig=sig, Sigma=Sigma) < 0)
+      }
+      
     }else{
       n <- NULL
-    }  
+    }
   }
 
   res <- NULL

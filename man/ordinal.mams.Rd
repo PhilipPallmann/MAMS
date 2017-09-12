@@ -12,7 +12,7 @@ The function determines (approximately) the boundaries of a multi-arm multi-stag
 \usage{
 ordinal.mams(prob=c(0.35, 0.4, 0.25), or=2, or0=1.2, K=4, J=2, alpha=0.05,
      power=0.9, r=1:2, r0=1:2, ushape="obf", lshape="fixed", ufix=NULL,
-     lfix=0, nstart=1, sample.size=TRUE, N=20)
+     lfix=0, nstart=1, nstop=NULL, sample.size=TRUE, N=20)
 }
 
 \arguments{
@@ -30,6 +30,7 @@ ordinal.mams(prob=c(0.35, 0.4, 0.25), or=2, or0=1.2, K=4, J=2, alpha=0.05,
   \item{ufix}{Fixed upper boundary (default=NULL). Only used if \code{shape="fixed"}.}
   \item{lfix}{Fixed lower boundary (default=0). Only used if \code{shape="fixed"}.}
   \item{nstart}{Starting point for finding the sample size (default=1).}
+  \item{nstop}{Stopping point for finding the sample size (default=NULL).}
   \item{sample.size}{Logical if sample size should be found as well (default=TRUE).}
   \item{N}{Number of quadrature points per dimension in the outer integral (default=20).}
 }

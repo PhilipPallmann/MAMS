@@ -352,18 +352,20 @@ mams <- function(K=4, J=2, alpha=0.05, power=0.9, r=1:2, r0=1:2, p=0.75, p0=0.5,
         nx <- nstart
         po <- 0
         while (po==0){
-          nx <- nx + 1
           po <- (typeII(nx, beta=1 - power, l=l, u=u, N=N, r=r, r0=r0, r0diff=r0diff, J=1,
                         K=K, delta=delta, delta0=delta0, sig=sig, Sigma=Sigma) < 0)
+          nx <- nx + 1
         }
         nstop <- 3 * nx
       }
       
       while (pow==0 & n<=nstop){
-        n <- n + 1
         pow <- (typeII(n, beta=1 - power, l=l, u=u, N=N, r=r, r0=r0, r0diff=r0diff, J=J,
                        K=K, delta=delta, delta0=delta0, sig=sig, Sigma=Sigma) < 0)
+        n <- n + 1
       }
+      
+      if(n==nstop){warning("The sample size was limited by nstop.")}
       
     }else{
       n <- NULL

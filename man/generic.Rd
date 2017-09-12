@@ -77,7 +77,7 @@ Stallard N, Todd S (2003) Sequential designs for phase III clinical trials incor
 Magirr D, Stallard N, Jaki T (2014) Flexible sequential designs for multi-arm clinical trials. Statistics in Medicine, 33(19), 3269-3279. 
 }
 
-\author{Thomas Jaki and Dominic Magirr}
+\author{Thomas Jaki, Dominic Magirr, Philip Pallmann}
 
 \examples{
 \donttest{

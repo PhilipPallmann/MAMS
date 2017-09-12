@@ -61,7 +61,7 @@ Jaki T, Magirr D (2013) Considerations on covariates and endpoints in multi-arm 
 Whitehead J (2001) Predicting the duration of sequential survival studies. Drug Information Journal, 35(4), 1387–1400.
 }
 
-\author{Philip Pallmann}
+\author{Philip Pallmann, Dominic Magirr}
 
 \examples{
 ## An example 2-stage design with triangular efficacy and futility boundaries

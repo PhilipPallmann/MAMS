@@ -8,14 +8,22 @@ print.MAMS <- function (x, digits=max(3, getOption("digits") - 4), ...) {
   if(!is.na(x$power)){
     res <- matrix(NA,nrow=2,ncol=x$J)
     colnames(res)<-paste("Stage",1:x$J)
-    rownames(res) <- c("Cumulative sample size per stage (control):", "Cumulative sample size per stage (active):")
-
+    if(x$type=="tite"){
+      rownames(res) <- c("Cumulative number of events per stage (control):", "Cumulative number of events per stage (active):")
+    }else{
+      rownames(res) <- c("Cumulative sample size per stage (control):", "Cumulative sample size per stage (active):")
+    }
+    
     res[1,] <- ceiling(x$n*x$rMat[1,])
     res[2,] <- ceiling(x$n*x$rMat[2,])
 
     print(res)
-  
-    cat(paste("\nMaximum total sample size: ", x$N,"\n\n"))
+    
+    if(x$type=="tite"){
+      cat(paste("\nMaximum total number of events: ", x$N,"\n\n"))
+    }else{
+      cat(paste("\nMaximum total sample size: ", x$N,"\n\n"))
+    }
 
   }
 
@@ -36,14 +44,23 @@ summary.MAMS<-function(object, digits=max(3, getOption("digits") - 4), ...){
   if(!is.null(object$n)){
     res <- matrix(NA,nrow=2,ncol=object$J)
     colnames(res)<-paste("Stage",1:object$J)
-    rownames(res) <- c("Cumulative sample size per stage (control):", "Cumulative sample size per stage (active):")
-
+    if(object$type=="tite"){
+      rownames(res) <- c("Cumulative number of events per stage (control):", "Cumulative number of events per stage (active):")
+    }else{
+      rownames(res) <- c("Cumulative sample size per stage (control):", "Cumulative sample size per stage (active):")
+    }
+    
     res[1,] <- ceiling(object$n*object$rMat[1,])
     res[2,] <- ceiling(object$n*object$rMat[2,])
 
     print(res)
+    
+    if(object$type=="tite"){
+      cat(paste("\nMaximum total number of events: ", object$N,"\n\n"))
+    }else{
+      cat(paste("\nMaximum total sample size: ", object$N,"\n\n"))
+    }
   
-    cat(paste("\nMaximum total sample size: ", object$N,"\n\n"))
   }
 
   res <- matrix(NA,nrow=2,ncol=object$J)

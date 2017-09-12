@@ -58,7 +58,7 @@ Magirr D, Jaki T, Whitehead J (2012) A generalized Dunnett test for multi-arm mu
 
 Jaki T, Magirr D (2013) Considerations on covariates and endpoints in multi-arm multi-stage clinical trials selecting all promising treatments. Statistics in Medicine, 32(7), 1150-1163.\cr
 
-Whitehead J (2001) Predicting the duration of sequential survival studies. Drug Information Journal, 35(4), 1387–1400.
+Whitehead J (2001) Predicting the duration of sequential survival studies. Drug Information Journal, 35(4), 1387-1400.
 }
 
 \author{Philip Pallmann, Dominic Magirr}

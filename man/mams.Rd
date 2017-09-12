@@ -12,7 +12,8 @@ The function determines the boundaries of a multi-arm multi-stage study for a gi
 \usage{
 mams(K=4, J=2, alpha=0.05, power=0.9, r=1:2, r0=1:2, p=0.75, p0=0.5, 
      delta=NULL, delta0=NULL, sd=NULL, ushape="obf", lshape="fixed",
-     ufix=NULL, lfix=0, nstart=1, nstop=NULL, sample.size=TRUE, N=20)
+     ufix=NULL, lfix=0, nstart=1, nstop=NULL, sample.size=TRUE, N=20,
+     type="normal")
 }
 
 \arguments{
@@ -35,6 +36,7 @@ mams(K=4, J=2, alpha=0.05, power=0.9, r=1:2, r0=1:2, p=0.75, p0=0.5,
   \item{nstop}{Stopping point for finding the sample size (default=NULL).}
   \item{sample.size}{Logical if sample size should be found as well (default=TRUE).}
   \item{N}{Number of quadrature points per dimension in the outer integral (default=20).}
+  \item{type}{Will be changed automatically by the wrappers \code{tite.mams} (to \code{"tite"}) and \code{ordinal.mams} (to \code{"ordinal"}) to customise the output.}
 }
 
 \details{

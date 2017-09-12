@@ -16,7 +16,7 @@ ordinal.mams(prob=c(0.35, 0.4, 0.25), or=2, or0=1.2, K=4, J=2, alpha=0.05,
 }
 
 \arguments{
-  \item{prob}{Vector of expected probabilities of falling into each category under control conditions.}
+  \item{prob}{Vector of expected probabilities of falling into each category under control conditions. The elements must sum up to one (default=c(0.35, 0.4, 0.25)).}
   \item{or}{Interesting treatment effect on the scale of odds ratios (default=2).}
   \item{or0}{Uninteresting treatment effect on the scale of odds ratios (default=1.2).}
   \item{K}{Number of experimental treatments (default=4).}

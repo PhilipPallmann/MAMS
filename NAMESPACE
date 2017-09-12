@@ -15,7 +15,6 @@ S3method(summary, MAMS)
 S3method(summary, MAMS.sim)
 S3method(summary, MAMS.stepdown)
 
-
 export(
        mams,
        mams.sim,

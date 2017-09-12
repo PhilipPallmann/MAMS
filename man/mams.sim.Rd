@@ -78,7 +78,7 @@ mams.sim(nsim=10000, nMat=matrix(c(44, 88), nrow=2, ncol=5), u=c(3.068, 2.169),
 
 # under global null hypothesis (using the deltav scale)
 mams.sim(nsim=10000, nMat=matrix(c(44, 88), nrow=2, ncol=5), u=c(3.068, 2.169),
-         l=c(0.000, 2.169), pv=NULL, deltav=rep(0.178, 4), sd=1, ptest=1)
+         l=c(0.000, 2.169), pv=NULL, deltav=rep(0, 4), sd=1, ptest=1)
 
 # under LFC
 mams.sim(nsim=10000, nMat=matrix(c(44, 88), nrow=2, ncol=5), u=c(3.068, 2.169),

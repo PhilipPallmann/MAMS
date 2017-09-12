@@ -1,4 +1,5 @@
-mams <- function(K=4, J=2, alpha=0.05, power=0.9, r=1:2, r0=1:2, p=0.75, p0=0.5, ushape="obf", lshape="fixed", ufix=NULL, lfix=0, nstart=1, sample.size=TRUE, N=20){
+mams <- function(K=4, J=2, alpha=0.05, power=0.9, r=1:2, r0=1:2, p=0.75, p0=0.5, delta=NULL, delta0=NULL, sd=NULL,
+                 ushape="obf", lshape="fixed", ufix=NULL, lfix=0, nstart=1, sample.size=TRUE, N=20){
 
 
   #require(mvtnorm) ## the function pmvnorm is required to evaluate multivariate normal probabilities
@@ -173,15 +174,28 @@ mams <- function(K=4, J=2, alpha=0.05, power=0.9, r=1:2, r0=1:2, p=0.75, p0=0.5,
 
   ## checking input parameters
   if(K%%1>0 | J%%1>0){stop("K and J need to be integers.")}
-  if(K < 1 | J < 1){stop("The number of stages and treatments must be at least 1.")}
+  if(K<1 | J<1){stop("The number of stages and treatments must be at least 1.")}
   if(N<=3){stop("Number of points for integration by quadrature to small or negative.")}
   if(N>3 & N<=10){warning("Number of points for integration by quadrature is small which may result in inaccurate solutions.")}
-  if(p<0 | p>1 | p0<0 | p0>1){stop("Treatment effect parameter not within 0 and 1.")}
   if(alpha<0 | alpha>1 | power<0 | power>1){stop("Error rate or power not between 0 and 1.")}
-  if(p<=p0){stop("Interesting treatment effect must be larger than uninteresting effect.")}
-  if(p0<0.5 ){warning("Uninteresting treatment effect less than 0.5 which implies that reductions in effect over placebo are interesting.")}
   if(length(r)!=length(r0)){stop("Different length of allocation ratios on control and experimental treatments.")}
   if(length(r)!=J){stop("Length of allocation ratios does not match number of stages.")}
+  
+  if(is.numeric(p) & is.numeric(p0) & is.numeric(delta) & is.numeric(delta0) & is.numeric(sd)){
+    stop("Specify the effect sizes either via (p, p0) or via (delta, delta0, sd) and set the other parameters to NULL.")
+  }
+  
+  if(is.numeric(p) & is.numeric(p0)){
+    if(p<0 | p>1 | p0<0 | p0>1){stop("Treatment effect parameter not within 0 and 1.")}
+    if(p<=p0){stop("Interesting treatment effect must be larger than uninteresting effect.")}
+    if(p0<0.5){warning("Uninteresting treatment effect less than 0.5 which implies that reductions in effect over placebo are interesting.")}
+  }else{
+    if(is.numeric(delta) & is.numeric(delta0) & is.numeric(sd)){
+      if(sd<=0){stop("Standard deviation must be positive.")}
+    }else{
+      stop("Specify the effect sizes either via (p, p0) or via (delta, delta0, sd).")
+    }
+  }
   
   if(is.function(ushape) & is.function(lshape)){
     warning("You have specified your own functions for both the lower and upper boundary. Please check carefully whether the resulting boundaries are sensible.")
@@ -205,11 +219,17 @@ mams <- function(K=4, J=2, alpha=0.05, power=0.9, r=1:2, r0=1:2, p=0.75, p0=0.5,
   ############################################################################
   ## Convert treatment effects into absolute effects with standard deviation 1:
   ############################################################################
-
-  delta<-sqrt(2)*qnorm(p)
-  delta0<-sqrt(2)*qnorm(p0)
-  sig<-1
-
+  
+  if(is.numeric(p) & is.numeric(p0)){
+    delta <- sqrt(2) * qnorm(p)
+    delta0 <- sqrt(2) * qnorm(p0)
+    sig <- 1
+  }else{
+    delta <- delta
+    delta0 <- delta0
+    sig <- sd
+  }
+  
   ############################################################################
   ## Ensure equivalent allocation ratios yield same sample size
   ############################################################################

@@ -2,7 +2,8 @@
 ## 'mams.sim' evaluates 'generalsim' x times and computes average
 ######################################################################
 
-mams.sim <- function(nsim=1000,nMat=matrix(c(44,88),nrow=2,ncol=5),u=c(3.068,2.169),l=c(0.000,2.169),pv=rep(0.5,4),ptest=1) { 
+mams.sim <- function(nsim=1000, nMat=matrix(c(44, 88), nrow=2, ncol=5), u=c(3.068, 2.169),
+                     l=c(0.000, 2.169), pv=rep(0.5, 4), ptest=1) { 
 
 ########################################################################################################
 ## 'generalsim' simulates the trial once. For general number of patients per arm per stage - 

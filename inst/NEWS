@@ -12,9 +12,10 @@ Question or suggestions about the package can be sent to
    jaki.thomas@gmail.com
 
 --------------------CHANGE LOG--------------------------------------------
-Version 1.02
+Version 1.1
 
-  o New function 'ordinal.mams' for ordinal and binary endpoints
+  o New functions 'ordinal.mams' for ordinal and binary endpoints and
+    'tite.mams' for time-to-event endpoints
   o Harmonised function and input names (most notably, 'step_down_mams' and
     'update_mams' are now called 'stepdown.mams' and 'update.mams')
   o Corrected minor bugs in mams

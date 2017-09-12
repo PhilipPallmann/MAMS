@@ -1,24 +1,23 @@
-\name{ordinal.mams}
-\alias{ordinal.mams}
+\name{tite.mams}
+\alias{tite.mams}
 
 \title{
-Function to design multi-arm multi-stage studies with ordinal or binary endpoints
+Function to design multi-arm multi-stage studies with time-to-event endpoints
 }
 
 \description{
-The function determines (approximately) the boundaries of a multi-arm multi-stage study with ordinal or binary endpoints for a given boundary shape and finds the required number of subjects.
+The function determines (approximately) the boundaries of a multi-arm multi-stage study with time-to-event endpoints for a given boundary shape and finds the required number of events.
 }
 
 \usage{
-ordinal.mams(prob=c(0.35, 0.4, 0.25), or=2, or0=1.2, K=4, J=2, alpha=0.05,
-     power=0.9, r=1:2, r0=1:2, ushape="obf", lshape="fixed", ufix=NULL,
-     lfix=0, nstart=1, sample.size=TRUE, N=20)
+tite.mams(hr=1.5, hr0=1.1, K=4, J=2, alpha=0.05, power=0.9,
+          r=1:2, r0=1:2, ushape="obf", lshape="fixed", ufix=NULL,
+          lfix=0, nstart=1, sample.size=TRUE, N=20)
 }
 
 \arguments{
-  \item{prob}{Vector of expected probabilities of falling into each category under control conditions.}
-  \item{or}{Interesting treatment effect on the scale of odds ratios (default=2).}
-  \item{or0}{Uninteresting treatment effect on the scale of odds ratios (default=1.2).}
+  \item{hr}{Interesting treatment effect on the scale of hazard ratios (default=2).}
+  \item{hr0}{Uninteresting treatment effect on the scale of hazard ratios (default=1.2).}
   \item{K}{Number of experimental treatments (default=4).}
   \item{J}{Number of stages (default=2).}
   \item{alpha}{One-sided familywise error rate (default=0.05).}
@@ -35,7 +34,7 @@ ordinal.mams(prob=c(0.35, 0.4, 0.25), or=2, or0=1.2, K=4, J=2, alpha=0.05,
 }
 
 \details{
-This function finds the (approximate) boundaries and sample size of a multi-arm multi-stage study with ordinal or binary endpoints with K active treatments plus control in which all promising treatments are continued at interim analyses as described in Magirr et al (2012). It is a wrapper around the basic \code{mams} function to facilitate its use with ordinal and binary endpoints, following ideas of Whitehead & Jaki (2009) and Jaki & Magirr (2013). For a binary endpoint the vector \code{prob} has only two elements (success/failure, yes/no, etc.). See \code{?mams} for further details on the basic methodology.\cr
+This function finds the (approximate) boundaries and sample size of a multi-arm multi-stage study with time-to-event endpoints with K active treatments plus control in which all promising treatments are continued at interim analyses as described in Magirr et al (2012). It is a wrapper around the basic \code{mams} function to facilitate its use with time-to-event endpoints, following ideas of Jaki & Magirr (2013). Note that the sample size is calculated as the required number of events, from which the total sample size can be estimated (e.g., Whitehead 2001). See \code{?mams} for further details on the basic methodology.\cr
 }
 
 \value{
@@ -58,18 +57,15 @@ Magirr D, Jaki T, Whitehead J (2012) A generalized Dunnett test for multi-arm mu
 
 Jaki T, Magirr D (2013) Considerations on covariates and endpoints in multi-arm multi-stage clinical trials selecting all promising treatments. Statistics in Medicine, 32(7), 1150-1163.\cr
 
-Whitehead J, Jaki T (2009) One- and two-stage design proposals for a phase II trial comparing three active treatments with control using an ordered categorical endpoint. Statistics in Medicine, 28(5), 828-847.
+Whitehead J (2001) Predicting the duration of sequential survival studies. Drug Information Journal, 35(4), 1387–1400.
 }
 
 \author{Philip Pallmann}
 
 \examples{
-## An example based on the example in Whitehead & Jaki (2009)
-# 2-stage design with triangular efficacy and futility boundaries
-prob <- c(0.075, 0.182, 0.319, 0.243, 0.015, 0.166)
-ordinal.mams(prob=prob, or=3.06, or0=1.32, K=3, J=2, alpha=0.05,
-             power=0.9, r=1:2, r0=1:2, ushape="triangular",
-             lshape="triangular")
+## An example 2-stage design with triangular efficacy and futility boundaries
+tite.mams(hr=2, hr0=1.5, K=3, J=2, alpha=0.05, power=0.9,
+          r=1:2, r0=1:2, ushape="triangular", lshape="triangular")
 }
 
 \keyword{design}

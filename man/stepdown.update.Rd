@@ -1,5 +1,5 @@
-\name{update.mams}
-\alias{update.mams}
+\name{stepdown.update}
+\alias{stepdown.update}
 
 \title{
 Update the stopping boundaries of multi-arm multi-stage study at an interim analysis, allowing for unplanned treatment selection and/or sample-size reassessment. 
@@ -10,8 +10,8 @@ Function to update a planned multi-arm multi-stage design to account for unplann
 }
 
 \usage{
-update.mams(current.mams=stepdown.mams(), nobs=NULL, 
-            zscores=NULL, selected.trts=NULL, nfuture=NULL)
+stepdown.update(current.mams=stepdown.mams(), nobs=NULL, 
+                zscores=NULL, selected.trts=NULL, nfuture=NULL)
 }
 
 \arguments{
@@ -58,32 +58,32 @@ orig_mams <- stepdown.mams(nMat=matrix(c(10, 20), nrow=2, ncol=4),
 
 # make adjustment for the observed sample sizes 
 # not being exactly as planned:
-update.mams(orig_mams, nobs=c(9, 8, 13, 11), zscores=c(1.1, -0.5, 0.2), 
-            selected.trts=1:3, nfuture=NULL)
+stepdown.update(orig_mams, nobs=c(9, 8, 13, 11), zscores=c(1.1, -0.5, 0.2), 
+                selected.trts=1:3, nfuture=NULL)
 
 # make adjustment for the observed sample sizes 
 # not being exactly as planned. In addition, drop treatment 2:
-update.mams(orig_mams, nobs=c(9, 8, 13, 11), zscores=c(1.1, -0.5, 0.2), 
-            selected.trts=c(1, 3), nfuture=NULL)
+stepdown.update(orig_mams, nobs=c(9, 8, 13, 11), zscores=c(1.1, -0.5, 0.2), 
+                selected.trts=c(1, 3), nfuture=NULL)
 
 # make adjustment for the observed sample sizes not being 
 # exactly as planned. In addition, drop treatment 2. In addition, 
 # double the planed cumulative second stage sample sizes:
-updated_mams1 <- update.mams(orig_mams, nobs=c(9, 8, 13, 11), 
-                             zscores=c(1.1, -0.5, 0.2), selected.trts=c(1, 3), 
-                             nfuture=matrix(c(40, 40, 13, 40), nrow=1, ncol=4))
+updated_mams1 <- stepdown.update(orig_mams, nobs=c(9, 8, 13, 11), 
+                                 zscores=c(1.1, -0.5, 0.2), selected.trts=c(1, 3), 
+                                 nfuture=matrix(c(40, 40, 13, 40), nrow=1, ncol=4))
 
 # Account for the observed second stage sample sizes:
-update.mams(updated_mams1, nobs=c(38, 41, 13, 36), zscores=c(1.9, -Inf, 1.2), 
-            selected.trts=NULL)
+stepdown.update(updated_mams1, nobs=c(38, 41, 13, 36), zscores=c(1.9, -Inf, 1.2), 
+                selected.trts=NULL)
 
 # 'select.best' design. Account for actually observed sample sizes 
 # in first stage, and drop treatment 2:
 orig_mams <- stepdown.mams(nMat=matrix(c(10, 20), nrow=2, ncol=4), 
                            alpha.star=c(0.01, 0.05), lb=0, selection="select.best")
 
-update.mams(orig_mams, nobs=c(9, 8, 13, 11), zscores=c(1.1, -0.5, 0.2), 
-            selected.trts=c(1, 3), nfuture=NULL)
+stepdown.update(orig_mams, nobs=c(9, 8, 13, 11), zscores=c(1.1, -0.5, 0.2), 
+                selected.trts=c(1, 3), nfuture=NULL)
 }}
 
 \keyword{design}

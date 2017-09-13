@@ -63,7 +63,7 @@
 
   \code{summary.MAMS.stepdown} produces same output as \code{print.stepdown.mams}.\cr
 
-  \code{plot.MAMS.stepdown} produces a plot of the boundaries. When used with \code{update.mams}, pluses indicate observed values of test statistics.
+  \code{plot.MAMS.stepdown} produces a plot of the boundaries. When used with \code{stepdown.update}, pluses indicate observed values of test statistics.
 
 }
 

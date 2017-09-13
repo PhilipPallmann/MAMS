@@ -1,4 +1,4 @@
-update.mams <- function(current.mams = stepdown.mams(), nobs = NULL, zscores = NULL, selected.trts = NULL, nfuture = NULL) {
+stepdown.update <- function(current.mams = stepdown.mams(), nobs = NULL, zscores = NULL, selected.trts = NULL, nfuture = NULL) {
 
     zscores <- c(current.mams$zscores, list(zscores))
 

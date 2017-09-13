@@ -22,6 +22,6 @@ export(
        new.bounds,
        ordinal.mams,
        stepdown.mams,
-       tite.mams,
-       update.mams
+       stepdown.update,
+       tite.mams
       )
